@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace StorageManager
 {
@@ -19,6 +20,8 @@ namespace StorageManager
         public MainWindow()
         {
             InitializeComponent();
+            closeImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "close.png")));
+            expandImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "expand.png")));
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -29,7 +32,7 @@ namespace StorageManager
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ExpandWindow_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
             {
@@ -41,6 +44,11 @@ namespace StorageManager
                 this.WindowState = WindowState.Maximized;
                 MainBorder.CornerRadius = new CornerRadius(0);
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

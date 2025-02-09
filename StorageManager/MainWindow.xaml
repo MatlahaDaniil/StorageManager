@@ -6,16 +6,84 @@
         xmlns:local="clr-namespace:StorageManager"
         mc:Ignorable="d"
         Title="StorageManager"
-        MinHeight="750" 
+        MinHeight="850" 
         MinWidth="1150"
+        Height="750" 
+        Width="1250"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ControlButtons" TargetType="Button">
+                <Setter Property="Margin" Value="-25 -15 30 0"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Cursor" Value="Hand"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border x:Name="GlowEffect"
+                                        Background="CadetBlue"
+                                        Opacity="0"
+                                        CornerRadius="50"/>
+
+                                <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.2"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.2"/>
+                                                <DoubleAnimation Storyboard.TargetName="GlowEffect" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.0" Duration="0:0:0.2"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.0" Duration="0:0:0.2"/>
+                                                <DoubleAnimation Storyboard.TargetName="GlowEffect" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <Grid>
-        <Border x:Name="MainBorder" CornerRadius="50" Grid.RowSpan="2" Background="#36393F">
+        <Border x:Name="MainBorder" 
+                CornerRadius="50"
+                Grid.RowSpan="2"
+                Background="#36393F"
+                BorderThickness="3"
+                BorderBrush="White">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
@@ -28,11 +96,19 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal"
-                         Grid.ColumnSpan="2">
-                    <!--<Image Source="/Resources/Icons/Store.png"/>-->
-                    <Button Click="Button_Click">-------------------------------</Button>
-                </StackPanel>
+                            Grid.Column="2"
+                            HorizontalAlignment="Right">
+                    <Button Click="ExpandWindow_Click"
+                            Style="{StaticResource ResourceKey=ControlButtons}">
+                        <Image x:Name="expandImg"/>
+                    </Button>
 
+                    <Button Click="Close_Click"
+                            Style="{StaticResource ResourceKey=ControlButtons}">
+                        <Image x:Name="closeImg"/>
+                    </Button>
+
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>
