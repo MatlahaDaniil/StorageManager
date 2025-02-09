@@ -1,0 +1,39 @@
+﻿<Window x:Class="StorageManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StorageManager"
+        mc:Ignorable="d"
+        Title="StorageManager"
+        MinHeight="750" 
+        MinWidth="1150"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseDown="Window_MouseDown">
+
+    <Grid>
+        <Border x:Name="MainBorder" CornerRadius="50" Grid.RowSpan="2" Background="#36393F">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                         Grid.ColumnSpan="2">
+                    <!--<Image Source="/Resources/Icons/Store.png"/>-->
+                    <Button Click="Button_Click">-------------------------------</Button>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
