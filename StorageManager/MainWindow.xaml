@@ -91,7 +91,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="120"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -109,6 +109,31 @@
                     </Button>
 
                 </StackPanel>
+
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal">
+                    <Border Background="Wheat"
+                            Height="100"
+                            Width="100"
+                            CornerRadius="200"
+                            Margin="15 10 0 0">
+                    </Border>
+
+                    <TextBox Width="190"
+                             Height="50"
+                             Margin="10 40 0 0">oUR sHOP</TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <Button Height="100" Margin="10 50 10 10 "/>
+                    <Button Height="100" Margin="10"/>
+                    <Button Height="100" Margin="10"/>
+                    <Button Height="100" Margin="10"/>
+                </StackPanel>
+
+                <Frame x:Name="MainFrame"
+                       Grid.Column="1"
+                       Grid.Row="1"/>
             </Grid>
         </Border>
     </Grid>
