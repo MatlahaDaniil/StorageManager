@@ -7,16 +7,21 @@
         mc:Ignorable="d"
         Title="StorageManager"
         MinHeight="850" 
-        MinWidth="1150"
+        MinWidth="1350"
         Height="750" 
-        Width="1250"
+        Width="1350"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        Icon="/Resources/StorageManager.png">
     <Window.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
             <Style x:Key="ControlButtons" TargetType="Button">
                 <Setter Property="Margin" Value="-25 -15 30 0"/>
                 <Setter Property="Height" Value="50"/>
@@ -74,6 +79,7 @@
                 </Setter>
                 <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
             </Style>
+
         </ResourceDictionary>
     </Window.Resources>
 
@@ -119,21 +125,64 @@
                             Margin="15 10 0 0">
                     </Border>
 
-                    <TextBox Width="190"
-                             Height="50"
-                             Margin="10 40 0 0">oUR sHOP</TextBox>
+                    <TextBlock Width="190"
+                               Height="50"
+                               Foreground="White"
+                               VerticalAlignment="Bottom"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Margin="10 80 0 0"
+                               x:Name="ShopName_txb"></TextBlock>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <Button Height="100" Margin="10 50 10 10 "/>
-                    <Button Height="100" Margin="10"/>
-                    <Button Height="100" Margin="10"/>
-                    <Button Height="100" Margin="10"/>
+                  
+                    <Border Background="White" 
+                        Height="5"
+                        Margin="15 10 15 10"
+                        CornerRadius="5"/>
+
+                    <Menu Grid.Row="1"
+                          Background="Transparent"
+                          Margin="0,0,0,0">
+                   
+                        <MenuItem Header="Склад"                         
+                                  Template="{StaticResource Menu_Template}"
+                                  Click="StoragePage_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Resources/storage.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Історія продажів"
+                                  Template="{StaticResource Menu_Template}"
+                                  Click="SalesHistoryPage_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Resources/history.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Змінити профіль"                         
+                                  Template="{StaticResource Menu_Template}"
+                                  Click="EditProfile_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Resources/edit.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Вихід"                         
+                                  Template="{StaticResource Menu_Template}"
+                                  Click="Exit_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Resources/logout.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
                 </StackPanel>
 
                 <Frame x:Name="MainFrame"
-                       Grid.Column="1"
-                       Grid.Row="1"/>
+                       NavigationUIVisibility="Hidden"
+                       Grid.Column="1" Margin="0,80,0,0" Grid.RowSpan="2"/>
             </Grid>
         </Border>
     </Grid>
