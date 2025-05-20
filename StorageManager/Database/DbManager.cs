@@ -11,6 +11,7 @@ namespace StorageManager.Database
     class DbManager
     {
         private static DbManager _instance;
+        private ShopEntity currentShop = null;
         private DbManager()
         {
             var context = new ShopDbContext();
@@ -31,21 +32,43 @@ namespace StorageManager.Database
             }
         }
 
+        public ShopEntity get_currentShop() { return currentShop; }
+
         public void AddNewShop(ShopEntity newShop)
         {
             using (var context = new ShopDbContext())
             {
                 context.Shops.Add(newShop);
                 context.SaveChanges();
+                currentShop = newShop;
             }
         }
 
-        public ShopEntity CheckShop(ShopEntity checkShop)
+        public bool CheckShop(ShopEntity checkShop)
         {
             using (var context = new ShopDbContext())
             {
-                return context.Shops
+                currentShop = context.Shops
                     .FirstOrDefault(s => s.Name == checkShop.Name);
+                return true;
+            }
+            return false;
+        }
+
+        public void UpdateShop(ShopEntity updatedShop)
+        {
+            using (var context = new ShopDbContext())
+            {
+                var shop = context.Shops.FirstOrDefault(l => l.Id == updatedShop.Id);
+                if (shop != null)
+                {
+                    shop.Name = updatedShop.Name;
+                    shop.Password = updatedShop.Password;
+                    shop.Logo = updatedShop.Logo;
+
+                    context.SaveChanges();
+                    currentShop = updatedShop;
+                }
             }
         }
     }

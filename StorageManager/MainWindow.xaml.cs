@@ -2,6 +2,7 @@
 using StorageManager.Database;
 using StorageManager.Pages;
 using StorageManager.Windows;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,9 @@ namespace StorageManager
 {
     public partial class MainWindow : Window
     {
+        ShopEntity currentShop = new ShopEntity();
+        DbManager db = DbManager.Instance;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,11 +33,37 @@ namespace StorageManager
 
             StartWindow startWindow = new StartWindow();
             startWindow.ShowDialog();
-            ShopEntity tmp = startWindow.GetCurrentShop();
-            ShopName_txb.Text = tmp.Name;
-            this.Visibility = Visibility.Visible;
 
-            var db = DbManager.Instance;
+            currentShop = db.get_currentShop();
+            if (currentShop == null)
+            {
+                this.Close();
+                return;
+            }
+
+            UpdateInfo();
+
+            this.Visibility = Visibility.Visible;
+        }
+
+        public void UpdateInfo()
+        {
+            currentShop = db.get_currentShop();
+            ShopName_txb.Text = currentShop.Name;
+            if (currentShop.Logo != null)
+            {
+                using (var stream = new MemoryStream(currentShop.Logo))
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream; 
+                    bitmap.EndInit();
+                    bitmap.Freeze();
+
+                    ShopLogo_img.Source = bitmap;
+                }
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -75,7 +105,9 @@ namespace StorageManager
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new EditProfilePage());
+            EditProfilePage editProfilePage = new EditProfilePage();
+            editProfilePage.ProfileUpdated += UpdateInfo;
+            MainFrame.Navigate(editProfilePage);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

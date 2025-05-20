@@ -19,7 +19,6 @@ namespace StorageManager.Windows
     public partial class StartWindow : Window
     {
         DbManager db;
-        ShopEntity currentShop;
         public StartWindow()
         {
             InitializeComponent();
@@ -65,10 +64,8 @@ namespace StorageManager.Windows
 
         private void LogIn_btn_Click(object sender, RoutedEventArgs e)
         {
-            var value = db.CheckShop(new ShopEntity { Name = Username_txb.Text, Password = Password_pb.Password });
-            if (value != null)
+            if (db.CheckShop(new ShopEntity { Name = Username_txb.Text, Password = Password_pb.Password }))
             {
-                currentShop = value;
                 this.Close();
             }
         }
@@ -77,10 +74,7 @@ namespace StorageManager.Windows
         {
             ShopEntity newShop = new ShopEntity { Name = Username_txb.Text, Password = Password_pb.Password };
             db.AddNewShop(newShop);
-            currentShop = newShop;
             this.Close();
         }
-
-        public ShopEntity GetCurrentShop() { return currentShop; }
     }
 }

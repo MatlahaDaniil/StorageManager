@@ -15,6 +15,7 @@
     <None Remove="Resources\logout.png" />
     <None Remove="Resources\storage.png" />
     <None Remove="Resources\StorageManager.png" />
+    <None Remove="Resources\unknown_user.png" />
     <None Remove="Resources\user.png" />
   </ItemGroup>
 
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\StorageManager.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\unknown_user.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\user.png">

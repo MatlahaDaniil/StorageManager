@@ -8,11 +8,87 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditProfilePage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
-        <TextBlock Text="EditPage"
-           FontSize="56"
-           Foreground="White"
-           VerticalAlignment="Center"
-           HorizontalAlignment="Center"/>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="-227,-73,0,0">
+                <Border Background="#36393F"
+                        BorderBrush="White"
+                        BorderThickness="3"
+                        Height="100"
+                        Width="100"
+                        CornerRadius="200"
+                        Margin="15 10 0 0">
+                    <Grid>
+                        <Ellipse Fill="#36393F" />
+                        <Image x:Name="ShopLogo_img"
+                               Source="/Resources/unknown_user.png"
+                               Width="90"
+                               Height="90"
+                               Stretch="UniformToFill"
+                               MouseDown="ShopLogo_img_MouseDown">
+                            <Image.Clip>
+                                <EllipseGeometry Center="45,45" RadiusX="45" RadiusY="45" />
+                            </Image.Clip>
+                        </Image>
+                    </Grid>
+                </Border>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="Username_txb" FontWeight="Light" 
+                      Text="Логін" FontSize="20"
+                      HorizontalAlignment="Center" Background="Transparent"
+                      HorizontalContentAlignment="Left"
+                      BorderThickness="0" Foreground="White" Width="215"
+                      Opacity="0.5" Height="25" Margin="20,0,15,0"                        
+                      LostFocus="Username_txb_LostFocus"
+                      GotFocus ="Username_txb_GotFocus"/>
+
+                    <Image Source="/Resources/user.png" 
+                    Height="30"
+                    Width="30" 
+                    Margin="-20 0 0 0"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"/>
+                </StackPanel>
+                <Border Width="255" Height="2" Background="White" Opacity="0.5" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                    <PasswordBox x:Name="Password_pb" FontWeight="Light" FontSize="20"
+                          HorizontalAlignment="Center" Background="Transparent"
+                          HorizontalContentAlignment="Left" 
+                          BorderThickness="0" Foreground="White" Width="215"
+                          Password ="password"
+                          Opacity="0.5" Height="25" Margin="20,0,15,0"
+                          LostFocus="PasswordBox_LostFocus"
+                          GotFocus="PasswordBox_GotFocus"/>
+
+                    <Image Source="/Resources/lock.png" Width="30" 
+                   Margin="-20 0 0 0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+                <Border Width="255" Height="2" Background="White" Opacity="0.5" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                    <Button x:Name="Change_btn" Width="200"
+                     Height="40" Content="Змінити"
+                     FontWeight="Bold"
+                     Margin="30,0,30,0"
+                     Click="Change_btn_Click"
+                     Style="{StaticResource btn_ForStyleTestManager}"/>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

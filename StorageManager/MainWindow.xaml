@@ -118,11 +118,28 @@
 
                 <StackPanel Grid.Row="0"
                             Orientation="Horizontal">
-                    <Border Background="Wheat"
+
+                    <Border Background="#36393F"
+                            BorderBrush="White"
+                            BorderThickness="3"
                             Height="100"
                             Width="100"
                             CornerRadius="200"
                             Margin="15 10 0 0">
+                        <Grid>
+                            <Ellipse Fill="#36393F" />
+                            <Image x:Name="ShopLogo_img"
+                                   Source="/Resources/unknown_user.png"
+                                   Width="90"
+                                   Height="90"
+                                   Stretch="UniformToFill"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="45,45" RadiusX="45" RadiusY="45" />
+                                </Image.Clip>
+                            </Image>
+                        </Grid>
                     </Border>
 
                     <TextBlock Width="190"
