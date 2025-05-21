@@ -14,14 +14,11 @@ namespace Database.SQL.Configurations
         public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.HasKey(i => i.Id);
-           
-            builder
-                .HasOne(c => c.Castomer)
-                .WithMany(p => p.Products);
             
             builder
                 .HasOne(h => h.History)
-                .WithMany(p => p.Products);
+                .WithOne(p => p.Product)
+                .HasForeignKey<ProductEntity>(h => h.HistoryId);
         }
     }
 }

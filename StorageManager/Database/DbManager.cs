@@ -34,6 +34,49 @@ namespace StorageManager.Database
 
         public ShopEntity get_currentShop() { return currentShop; }
 
+
+        public List<ProductEntity> getAllProducts()
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Products.ToList();//Where(p => p.ShopId == currentShop.Id).ToList();
+            }
+        }
+
+        public List<ProductEntity> get_Products(string productName)
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Products.Where(p=> p.Name == productName).ToList();//Where(p => p.ShopId == currentShop.Id).ToList();
+            }
+        }
+
+        public ProductEntity get_Product(Guid Id)
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Products.FirstOrDefault(p => p.Id == Id);//Where(p => p.ShopId == currentShop.Id).ToList();
+            }
+        }
+
+        public void DeleteProductById(Guid productId)
+        {
+            using (var context = new ShopDbContext())
+            {
+                var product = context.Products.FirstOrDefault(p => p.Id == productId);
+
+                if (product != null)
+                {
+                    context.Products.Remove(product);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception($"Product with Id {productId} not found.");
+                }
+            }
+        }
+
         public void AddNewShop(ShopEntity newShop)
         {
             using (var context = new ShopDbContext())
@@ -41,6 +84,14 @@ namespace StorageManager.Database
                 context.Shops.Add(newShop);
                 context.SaveChanges();
                 currentShop = newShop;
+            }
+        }
+        public void AddProduct(ProductEntity newProduct)
+        {
+            using (var context = new ShopDbContext())
+            {
+                context.Products.Add(newProduct);
+                context.SaveChanges();
             }
         }
 
@@ -68,6 +119,25 @@ namespace StorageManager.Database
 
                     context.SaveChanges();
                     currentShop = updatedShop;
+                }
+            }
+        }
+
+        public void UpdateProduct(ProductEntity updatedProduct)
+        {
+            using (var context = new ShopDbContext())
+            {
+                var product = context.Products.FirstOrDefault(l => l.Id == updatedProduct.Id);
+                if (product != null)
+                {
+                    product.Name = updatedProduct.Name;
+                    product.Description = updatedProduct.Description;
+                    product.Count = updatedProduct.Count;
+                    product.PurchasePrice = updatedProduct.PurchasePrice;
+                    product.Cost = updatedProduct.Cost;
+                    product.Image = updatedProduct.Image;
+                    product.ShopId = updatedProduct.ShopId;
+                    context.SaveChanges();
                 }
             }
         }

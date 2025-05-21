@@ -28,7 +28,6 @@ namespace StorageManager
 
             closeImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "close.png")));
             expandImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "expand.png")));
-           
             this.Visibility = Visibility.Hidden;
 
             StartWindow startWindow = new StartWindow();

@@ -1,0 +1,131 @@
+﻿<Window x:Class="StorageManager.Windows.EditProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StorageManager.Windows"
+        mc:Ignorable="d"
+        Title="EditProductWindow"
+        Height="500" 
+        Width="1000"
+        MaxHeight="500" 
+        MaxWidth="1000"
+        MinHeight="500" 
+        MinWidth="1000"
+        WindowStyle="None"
+        Background="#26383F">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Name -->
+        <TextBlock Text="Назва:"
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center" 
+                   Grid.Row="0" Grid.Column="0" Margin="5" />
+        <TextBox x:Name="NameTextBox"
+                 Style="{StaticResource ModernTextBoxStyle}"
+                 Grid.Row="0" Grid.Column="1" Margin="5" />
+
+        <!-- Description -->
+        <TextBlock Text="Опис:" 
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center" Grid.Row="1" 
+                   Grid.Column="0" 
+                   Margin="5" />
+        <TextBox x:Name="DescriptionTextBox" 
+                 Style="{StaticResource ModernTextBoxStyle}"
+                 Grid.Row="1" Grid.Column="1" Margin="5" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
+
+        <!-- Count -->
+        <TextBlock Text="Кількість:"
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center" 
+                   Grid.Row="2" Grid.Column="0"
+                   Margin="5" />
+        <TextBox x:Name="CountTextBox"
+                 Style="{StaticResource ModernTextBoxStyle}"
+                 Grid.Row="2" Grid.Column="1" Margin="5" />
+
+        <!-- Purchase Price -->
+        <TextBlock Text="Ціна закупу:"
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center" 
+                   Grid.Row="3" Grid.Column="0"
+                   Margin="5" />
+        <TextBox x:Name="PurchasePriceTextBox"
+                 Style="{StaticResource ModernTextBoxStyle}"
+                 Grid.Row="3" Grid.Column="1" Margin="5" />
+
+        <!-- Cost -->
+        <TextBlock Text="Ціна продажу:"
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center"
+                   Grid.Row="4" Grid.Column="0"
+                   Margin="5" />
+        <TextBox x:Name="CostTextBox" 
+                 Style="{StaticResource ModernTextBoxStyle}"
+                 Grid.Row="4" Grid.Column="1" Margin="5" />
+
+        <!-- Image -->
+        <TextBlock Text="Фото продукту:"
+                   Style="{StaticResource BoldWhiteTextStyle}"
+                   VerticalAlignment="Center"
+                   Grid.Row="5" Grid.Column="0"
+                   Margin="5" />
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="5">
+            <TextBox x:Name="path_txb" 
+                     Width="550"
+                     Margin="0 30 0 30"
+                     Style="{StaticResource ModernTextBoxStyle}"
+                     IsEnabled="False"/>
+            <Button x:Name="BrowseButton"
+                    Style="{StaticResource btn_ForStyleTestManager}"
+                    Content="Обрати"
+                    Width="150"
+                    Height="50"
+                    Margin="10 20 0 20"
+                    Click="BrowseButton_Click"/>
+        </StackPanel>
+
+        <!-- Submit Button -->
+        <Button x:Name="AddButton"
+                Style="{StaticResource btn_ForStyleTestManager}"
+                Content="Змінити продукт"
+                Grid.Row="6" 
+                Grid.Column="1"
+                HorizontalAlignment="Right" 
+                Width="150" 
+                Margin="5"
+                Click="EditButton_Click"/>
+
+        <Button x:Name="Close_Button"
+                Style="{StaticResource btn_ForStyleTestManager}"
+                Content="Скасувати"
+                Grid.Row="6" 
+                Grid.Column="1"
+                HorizontalAlignment="Left" 
+                Width="150" 
+                Margin="5"
+                Click="Close_Button_Click"/>
+    </Grid>
+</Window>

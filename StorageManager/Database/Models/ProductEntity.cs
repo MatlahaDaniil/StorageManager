@@ -15,7 +15,9 @@ namespace Database.SQL.Models
         public float PurchasePrice { get; set; }
         public float Cost { get; set; }
         public byte[]? Image { get; set; }
-        public CastomerEntity? Castomer  { get; set; }
-        public HistoryEntity? History  { get; set; }
+        public Guid ShopId { get; set; }
+        public Guid HistoryId  { get; set; }
+
+        public HistoryEntity? History { get; set; }
     }
 }

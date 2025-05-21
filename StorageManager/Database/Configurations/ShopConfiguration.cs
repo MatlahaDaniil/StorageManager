@@ -16,9 +16,8 @@ namespace Database.SQL.Configurations
             builder.HasKey(i => i.Id);
 
             builder
-                .HasOne(h => h.History)
-                .WithOne(s => s.Shop)
-                .HasForeignKey<ShopEntity>(h => h.HistoryId);
+                .HasMany(h => h.Histories)
+                .WithOne(s => s.Shop);
         }
     }
 }

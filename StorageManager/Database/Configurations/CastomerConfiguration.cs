@@ -16,7 +16,7 @@ namespace Database.SQL.Configurations
             builder.HasKey(i => i.Id);
 
             builder
-                .HasMany(p => p.Products)
+                .HasMany(h => h.Histories)
                 .WithOne(c => c.Castomer);
         }
     }

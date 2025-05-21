@@ -11,6 +11,6 @@ namespace Database.SQL.Models
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        public List<ProductEntity> Products { get; set; } = [];
+        public List<HistoryEntity> Histories { get; set; }
     }
 }

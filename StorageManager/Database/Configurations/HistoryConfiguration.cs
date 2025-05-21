@@ -17,12 +17,16 @@ namespace Database.SQL.Configurations
 
             builder
                 .HasOne(s => s.Shop)
-                .WithOne(h => h.History)
-                .HasForeignKey<HistoryEntity>(s => s.ShopId);
+                .WithMany(h => h.Histories);
 
             builder
-                .HasMany(p => p.Products)
-                .WithOne(h => h.History);
+                .HasOne(c => c.Castomer)
+                .WithMany(h => h.Histories);
+
+            builder
+                .HasOne(p => p.Product)
+                .WithOne(h => h.History)
+                .HasForeignKey<HistoryEntity>(p => p.ProductId);
         }
     }
 }

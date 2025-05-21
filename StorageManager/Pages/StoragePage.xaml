@@ -7,12 +7,52 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StoragePage">
-
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
-        <TextBlock Text="StoragePage"
-                   FontSize="56"
-                   Foreground="White"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBox x:Name="search_txb"
+                           Width="500px"
+                           Margin="15 15 5 15 "
+                           Style="{StaticResource ResourceKey=ModernTextBoxStyle}"/>
+
+                <Button Margin="0"
+                        x:Name="Search_btn"
+                        Click="Search_btn_Click"
+                        Style="{StaticResource ResourceKey=ControlButtons}">
+                <Image Source="/Resources/search.png"
+                       Width="35"/>
+                </Button>
+
+                <Button Margin="0"
+                         x:Name="AddProduct_btn"
+                         Click="AddProduct_btn_Click"
+                         Style="{StaticResource ResourceKey=ControlButtons}">
+                    <Image Source="/Resources/add.png"
+                        Width="35"/>
+                </Button>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0 30 0 30">
+                <WrapPanel x:Name="MainWrapPanel" Orientation="Horizontal"/>
+            </ScrollViewer>
+           
+        </Grid>
     </Grid>
 </Page>

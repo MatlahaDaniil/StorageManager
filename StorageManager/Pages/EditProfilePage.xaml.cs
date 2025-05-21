@@ -88,17 +88,25 @@ namespace StorageManager.Pages
 
         private void Change_btn_Click(object sender, RoutedEventArgs e)
         {
-            byte[] fileBytes = ConvertLocalFileToBytes(selectedFilePath);
-
-            db.UpdateShop(new ShopEntity
+            if ((Username_txb.Text == "Логін" || Username_txb.Text == "Логін") ||
+                 Password_pb.Password == "password" || Password_pb.Password == "")
             {
-                Id = db.get_currentShop().Id,
-                Name = Username_txb.Text,
-                Password = Password_pb.Password,
-                Logo = fileBytes
-            });
+                MessageBox.Show("Введіть логін та пароль", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                byte[] fileBytes = ConvertLocalFileToBytes(selectedFilePath);
 
-            ProfileUpdated?.Invoke();
+                db.UpdateShop(new ShopEntity
+                {
+                    Id = db.get_currentShop().Id,
+                    Name = Username_txb.Text,
+                    Password = Password_pb.Password,
+                    Logo = fileBytes
+                });
+
+                ProfileUpdated?.Invoke();
+            }
         }
     }
 }
