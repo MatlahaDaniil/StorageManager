@@ -52,21 +52,41 @@ namespace StorageManager.Windows
         {
             try
             {
-                db.UpdateProduct(new ProductEntity
+                if (selectedFilePath == string.Empty)
                 {
-                    Id = product.Id,
-                    Name = NameTextBox.Text,
-                    Description = DescriptionTextBox.Text,
-                    Count = int.Parse(CountTextBox.Text),
-                    PurchasePrice = float.Parse(PurchasePriceTextBox.Text),
-                    Cost = float.Parse(CostTextBox.Text),
-                    Image = System.IO.File.ReadAllBytes(selectedFilePath),
-                    ShopId = db.get_currentShop().Id
-                });
+                    db.UpdateProduct(new ProductEntity
+                    {
+                        Id = product.Id,
+                        Name = NameTextBox.Text,
+                        Description = DescriptionTextBox.Text,
+                        Count = int.Parse(CountTextBox.Text),
+                        PurchasePrice = float.Parse(PurchasePriceTextBox.Text),
+                        Cost = float.Parse(CostTextBox.Text),
+                        Image = product.Image,
+                        ShopId = db.get_currentShop().Id
+                    });
+                }
+                else
+                {
+                    db.UpdateProduct(new ProductEntity
+                    {
+                        Id = product.Id,
+                        Name = NameTextBox.Text,
+                        Description = DescriptionTextBox.Text,
+                        Count = int.Parse(CountTextBox.Text),
+                        PurchasePrice = float.Parse(PurchasePriceTextBox.Text),
+                        Cost = float.Parse(CostTextBox.Text),
+                        Image = System.IO.File.ReadAllBytes(selectedFilePath),
+                        ShopId = db.get_currentShop().Id
+                    });
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                CustomMessageBox customMessageBox = new CustomMessageBox("Помилка редагування!");
+                customMessageBox.Owner = Application.Current.MainWindow;
+                customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                customMessageBox.ShowDialog();
                 return;
             }
             this.Close();

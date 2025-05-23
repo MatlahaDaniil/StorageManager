@@ -17,12 +17,12 @@ namespace StorageManager.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Database.SQL.Models.CastomerEntity", b =>
+            modelBuilder.Entity("Database.SQL.Models.CustomerEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,24 +30,23 @@ namespace StorageManager.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Castomers");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Database.SQL.Models.HistoryEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CastomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CustomerId")
@@ -61,10 +60,9 @@ namespace StorageManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CastomerId");
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("ShopId");
 
@@ -85,30 +83,26 @@ namespace StorageManager.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("HistoryId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<float>("PurchasePrice")
                         .HasColumnType("real");
-
-                    b.Property<Guid?>("ShopEntityId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShopEntityId");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Products");
                 });
@@ -124,7 +118,8 @@ namespace StorageManager.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -137,14 +132,16 @@ namespace StorageManager.Migrations
 
             modelBuilder.Entity("Database.SQL.Models.HistoryEntity", b =>
                 {
-                    b.HasOne("Database.SQL.Models.CastomerEntity", "Castomer")
+                    b.HasOne("Database.SQL.Models.CustomerEntity", "Customer")
                         .WithMany("Histories")
-                        .HasForeignKey("CastomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Database.SQL.Models.ProductEntity", "Product")
-                        .WithOne("History")
-                        .HasForeignKey("Database.SQL.Models.HistoryEntity", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Histories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Database.SQL.Models.ShopEntity", "Shop")
@@ -153,7 +150,7 @@ namespace StorageManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Castomer");
+                    b.Navigation("Customer");
 
                     b.Navigation("Product");
 
@@ -162,19 +159,23 @@ namespace StorageManager.Migrations
 
             modelBuilder.Entity("Database.SQL.Models.ProductEntity", b =>
                 {
-                    b.HasOne("Database.SQL.Models.ShopEntity", null)
+                    b.HasOne("Database.SQL.Models.ShopEntity", "Shop")
                         .WithMany("Products")
-                        .HasForeignKey("ShopEntityId");
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Database.SQL.Models.CastomerEntity", b =>
+            modelBuilder.Entity("Database.SQL.Models.CustomerEntity", b =>
                 {
                     b.Navigation("Histories");
                 });
 
             modelBuilder.Entity("Database.SQL.Models.ProductEntity", b =>
                 {
-                    b.Navigation("History");
+                    b.Navigation("Histories");
                 });
 
             modelBuilder.Entity("Database.SQL.Models.ShopEntity", b =>

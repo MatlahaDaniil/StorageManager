@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Database.SQL.Models
 {
-    public class CastomerEntity
+    public class CustomerEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        public List<HistoryEntity> Histories { get; set; }
+
+        public List<HistoryEntity> Histories { get; set; } = new();
     }
+
 }

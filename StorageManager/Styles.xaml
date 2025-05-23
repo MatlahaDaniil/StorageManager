@@ -36,6 +36,41 @@
 
     </Style>
 
+    <Style x:Key="btn_ForStyleTestManager_blackEdition" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#26383F"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="20"
+                     BorderThickness="2" BorderBrush="#26383F">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#26383F"/>
+                <Setter Property="Opacity" Value="0.4"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+
+        </Style.Triggers>
+
+    </Style>
+
     <ControlTemplate x:Key="Menu_Template"
                     TargetType="{x:Type MenuItem}">
 
@@ -79,8 +114,7 @@
 
             </Grid>
         </Border>
-
-
+        
         <ControlTemplate.Triggers>
 
             <Trigger Property="IsMouseOver" Value="true">
@@ -120,6 +154,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    
+    
     <Style x:Key="ControlButtons" TargetType="Button">
         <Setter Property="Margin" Value="-25 -15 30 0"/>
         <Setter Property="Height" Value="50"/>
@@ -275,5 +311,4 @@
         <Setter Property="Width" Value="60"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
-
 </ResourceDictionary>

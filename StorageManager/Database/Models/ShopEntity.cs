@@ -12,7 +12,8 @@ namespace Database.SQL.Models
         public string Name { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public byte[]? Logo { get; set; }
-        public List<ProductEntity> Products { get; set; } = [];
-        public List<HistoryEntity> Histories { get; set; } = [];
+
+        public List<ProductEntity> Products { get; set; } = new();
+        public List<HistoryEntity> Histories { get; set; } = new();
     }
 }

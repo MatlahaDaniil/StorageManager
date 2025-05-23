@@ -1,0 +1,104 @@
+﻿<Window x:Class="StorageManager.Windows.AboutProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StorageManager.Windows"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="AboutProductWindow" 
+        MaxHeight="450"
+        MaxWidth="800"
+        MinHeight="450"
+        MinWidth="800"
+        AllowsTransparency="True"
+        Background="Transparent">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border Background="#36383F"
+                CornerRadius="25"
+                BorderThickness="3"
+                BorderBrush="White">
+            <Border Margin="20" Background="#CFCFCF" CornerRadius="10" Padding="20" 
+            BorderBrush="#ccc" BorderThickness="1" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0"
+                           Height="160"
+                           Width="160"
+                           Stretch="UniformToFill"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           ClipToBounds="True"
+                           x:Name="ProductImage"/>  
+
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Top" >
+                        <TextBlock x:Name="Name_txb"
+                               FontSize="30"
+                               FontWeight="Bold" Foreground="#333"/>
+                        <TextBlock x:Name="Description_txb"
+                               FontSize="15"
+                               TextWrapping="Wrap" Margin="0,5,0,10" Foreground="Gray"/>
+
+                        <WrapPanel Margin="0,5">
+                            <TextBlock Text="Кількість: " 
+                                   FontSize="20" FontWeight="Bold" Foreground="#444"/>
+                            <TextBlock  x:Name="Count_txb"
+                                    FontSize="20"
+                                    Foreground="#444"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0,5">
+                            <TextBlock Text="Ціна закупівлі: "
+                                   FontSize="20" FontWeight="Bold" Foreground="#444"/>
+                            <TextBlock x:Name="Purch_Cost_txb"
+                                   FontSize="20"
+                                   Foreground="#444"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0,5">
+                            <TextBlock Text="Ціна продажу: "
+                                   FontSize="20"
+                                   FontWeight="Bold" Foreground="#444"/>
+                            <TextBlock x:Name="Cost_txb"
+                                   FontSize="20"
+                                   Foreground="#444"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" 
+                        x:Name="Sell_btn"
+                        Click="Sell_btn_Click"
+                        Content="Продати"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Width="100"
+                        Height="40"
+                        Style="{StaticResource btn_ForStyleTestManager_blackEdition}"/>
+
+                    <Button Grid.Column="1" 
+                        x:Name="Close_btn"
+                        Click="Close_btn_Click"
+                        Content="Назад"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Width="100"
+                        Height="40"
+                        Style="{StaticResource btn_ForStyleTestManager_blackEdition}"/>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

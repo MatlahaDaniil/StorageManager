@@ -34,12 +34,20 @@ namespace StorageManager.Database
 
         public ShopEntity get_currentShop() { return currentShop; }
 
-
+        public void clear_currentShop() { currentShop = null; }
         public List<ProductEntity> getAllProducts()
         {
             using (var context = new ShopDbContext())
             {
-                return context.Products.ToList();//Where(p => p.ShopId == currentShop.Id).ToList();
+                return context.Products.Where(p => p.ShopId == currentShop.Id).ToList();
+            }
+        }
+
+        public List<HistoryEntity> getAllHistories()
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Histories.Where(h=> h.ShopId == currentShop.Id).ToList();
             }
         }
 
@@ -47,7 +55,15 @@ namespace StorageManager.Database
         {
             using (var context = new ShopDbContext())
             {
-                return context.Products.Where(p=> p.Name == productName).ToList();//Where(p => p.ShopId == currentShop.Id).ToList();
+                return context.Products.Where(p=> p.Name == productName).ToList();
+            }
+        }
+
+        public CustomerEntity get_Customer(string phoneNumber)
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Customers.FirstOrDefault(c => c.PhoneNumber == phoneNumber);
             }
         }
 
@@ -55,11 +71,18 @@ namespace StorageManager.Database
         {
             using (var context = new ShopDbContext())
             {
-                return context.Products.FirstOrDefault(p => p.Id == Id);//Where(p => p.ShopId == currentShop.Id).ToList();
+                return context.Products.FirstOrDefault(p => p.Id == Id);
+            }
+        }
+        public CustomerEntity get_Customer(Guid Id)
+        {
+            using (var context = new ShopDbContext())
+            {
+                return context.Customers.FirstOrDefault(c => c.Id == Id);
             }
         }
 
-        public void DeleteProductById(Guid productId)
+        public bool DeleteProductById(Guid productId)
         {
             using (var context = new ShopDbContext())
             {
@@ -69,11 +92,9 @@ namespace StorageManager.Database
                 {
                     context.Products.Remove(product);
                     context.SaveChanges();
+                    return true;
                 }
-                else
-                {
-                    throw new Exception($"Product with Id {productId} not found.");
-                }
+                return false;
             }
         }
 
@@ -95,12 +116,28 @@ namespace StorageManager.Database
             }
         }
 
+        public void AddCustomer(CustomerEntity newCustomer)
+        {
+            using (var context = new ShopDbContext())
+            {
+                context.Customers.Add(newCustomer);
+                context.SaveChanges();
+            }
+        }
+
+        public void AddHistory(HistoryEntity newHistory)
+        {
+            using (var context = new ShopDbContext())
+            {
+                context.Histories.Add(newHistory);
+                context.SaveChanges();
+            }
+        }
         public bool CheckShop(ShopEntity checkShop)
         {
             using (var context = new ShopDbContext())
             {
-                currentShop = context.Shops
-                    .FirstOrDefault(s => s.Name == checkShop.Name);
+                currentShop = context.Shops.FirstOrDefault(s => s.Name == checkShop.Name);
                 return true;
             }
             return false;

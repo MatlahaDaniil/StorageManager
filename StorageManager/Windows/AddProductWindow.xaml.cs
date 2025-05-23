@@ -42,7 +42,10 @@ namespace StorageManager.Windows
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                CustomMessageBox customMessageBox = new CustomMessageBox("Помилка Додавання!");
+                customMessageBox.Owner = Application.Current.MainWindow;
+                customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                customMessageBox.ShowDialog();
                 return;
             }
             this.Close();

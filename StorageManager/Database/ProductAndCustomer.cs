@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.SQL.Models
+namespace StorageManager.Database
 {
-    public class ProductEntity
+    class ProductAndCustomer
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string NameProduct { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int Count { get; set; }
         public float PurchasePrice { get; set; }
         public float Cost { get; set; }
         public byte[]? Image { get; set; }
-        public Guid ShopId { get; set; }
-
-        public ShopEntity Shop { get; set; } = null!;
-        public List<HistoryEntity> Histories { get; set; } = new();
+        public string Name { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
     }
 }

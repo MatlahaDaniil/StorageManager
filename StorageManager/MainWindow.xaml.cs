@@ -21,13 +21,8 @@ namespace StorageManager
     {
         ShopEntity currentShop = new ShopEntity();
         DbManager db = DbManager.Instance;
-
-        public MainWindow()
+        void Start()
         {
-            InitializeComponent();
-
-            closeImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "close.png")));
-            expandImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "expand.png")));
             this.Visibility = Visibility.Hidden;
 
             StartWindow startWindow = new StartWindow();
@@ -43,6 +38,15 @@ namespace StorageManager
             UpdateInfo();
 
             this.Visibility = Visibility.Visible;
+        }
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            closeImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "close.png")));
+            expandImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "expand.png")));
+            
+            Start();
         }
 
         public void UpdateInfo()
@@ -111,7 +115,10 @@ namespace StorageManager
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            currentShop = null;
+            db.clear_currentShop();
+            MainFrame.Navigate(null);
+            Start();
         }
     }
 }

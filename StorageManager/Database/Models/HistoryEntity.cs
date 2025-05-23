@@ -13,9 +13,8 @@ namespace Database.SQL.Models
         public Guid ProductId { get; set; }
         public Guid CustomerId { get; set; }
 
-        public ShopEntity? Shop { get; set; }
-        public CastomerEntity? Castomer { get; set; }
-        public ProductEntity? Product { get; set; }
-
+        public ShopEntity Shop { get; set; } = null!;
+        public CustomerEntity Customer { get; set; } = null!;
+        public ProductEntity Product { get; set; } = null!;
     }
 }

@@ -35,6 +35,10 @@ namespace StorageManager.Pages
         private ImageSource LoadImage(byte[] imageData)
         {
             var bitmap = new BitmapImage();
+            if (imageData == null || imageData.Length == 0)
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/Resources/unknown_img.png"));
+            }
             using (var stream = new System.IO.MemoryStream(imageData))
             {
                 try
@@ -82,8 +86,7 @@ namespace StorageManager.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); 
 
-            if (product.Image != null)
-            {
+            
                 var image = new Image
                 {
                     Source = LoadImage(product.Image),
@@ -95,7 +98,7 @@ namespace StorageManager.Pages
                 };
                 Grid.SetRow(image, 0);
                 grid.Children.Add(image);
-            }
+            
 
             if (product.Name.Length < 15)
             {
@@ -205,7 +208,7 @@ namespace StorageManager.Pages
 
             editButton.Click += (s, e) => EditProduct(product.Id);
             deleteButton.Click += (s, e) => DeleteProduct(product.Id);
-            border.MouseDown += (s, e) => EditProduct(product.Id);
+            border.MouseDown += (s, e) => CheckProduct(product.Id);
 
             buttonPanel.Children.Add(deleteButton);
             buttonPanel.Children.Add(editButton);
@@ -219,7 +222,8 @@ namespace StorageManager.Pages
         void fillWrap()
         {
             MainWrapPanel.Children.Clear();
-
+            products.Clear();
+            products = db.getAllProducts();
             foreach (var product in products)
             {
                 MainWrapPanel.Children.Add(CreateProductElement(product));
@@ -235,11 +239,29 @@ namespace StorageManager.Pages
             products = db.getAllProducts();
             fillWrap();
         }
-
+        private void CheckProduct(Guid id)
+        {
+            AboutProductWindow aboutProductWindow = new AboutProductWindow(db.get_Product(id));
+            aboutProductWindow.Owner = Application.Current.MainWindow;
+            aboutProductWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            aboutProductWindow.ShowDialog();
+        }
         private void DeleteProduct(Guid id)
         {
-            db.DeleteProductById(id);
-            fillWrap();
+            if (db.DeleteProductById(id)) {
+                CustomMessageBox customMessageBox = new CustomMessageBox("Товар успішно вилучено");
+                customMessageBox.Owner = Application.Current.MainWindow;
+                customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                customMessageBox.ShowDialog();
+                fillWrap();
+            }
+            else
+            {
+                CustomMessageBox customMessageBox = new CustomMessageBox("Помилка при вилученні товару");
+                customMessageBox.Owner = Application.Current.MainWindow;
+                customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                customMessageBox.ShowDialog();
+            }
         }
 
         private void Search_btn_Click(object sender, RoutedEventArgs e)
@@ -248,7 +270,10 @@ namespace StorageManager.Pages
             List<ProductEntity>searchedProducts = db.get_Products(search_txb.Text);
             if (searchedProducts.Count == 0)
             {
-                MessageBox.Show("Товар не знайдено", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                CustomMessageBox customMessageBox = new CustomMessageBox("Товар не знайдено");
+                customMessageBox.Owner = Application.Current.MainWindow;
+                customMessageBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                customMessageBox.ShowDialog();
                 fillWrap();
             }
             else

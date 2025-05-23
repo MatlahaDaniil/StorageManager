@@ -72,8 +72,7 @@ namespace StorageManager.Windows
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            ShopEntity newShop = new ShopEntity { Name = Username_txb.Text, Password = Password_pb.Password };
-            db.AddNewShop(newShop);
+            db.AddNewShop(new ShopEntity { Name = Username_txb.Text, Password = Password_pb.Password });
             this.Close();
         }
     }
