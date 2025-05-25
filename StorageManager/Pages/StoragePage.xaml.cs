@@ -246,6 +246,15 @@ namespace StorageManager.Pages
             aboutProductWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             aboutProductWindow.ShowDialog();
         }
+        private void AddProduct_btn_Click(object sender, RoutedEventArgs e)
+        {
+            AddProductWindow addProductWindow = new AddProductWindow();
+            addProductWindow.Owner = Application.Current.MainWindow;
+            addProductWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            addProductWindow.ShowDialog();
+            products = db.getAllProducts();
+            fillWrap();
+        }
         private void DeleteProduct(Guid id)
         {
             if (db.DeleteProductById(id)) {
@@ -283,16 +292,6 @@ namespace StorageManager.Pages
                     MainWrapPanel.Children.Add(CreateProductElement(product));
                 }
             }
-        }
-
-        private void AddProduct_btn_Click(object sender, RoutedEventArgs e)
-        {
-            AddProductWindow addProductWindow = new AddProductWindow();
-            addProductWindow.Owner = Application.Current.MainWindow;
-            addProductWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            addProductWindow.ShowDialog();
-            products = db.getAllProducts();
-            fillWrap();
         }
     }
 }
